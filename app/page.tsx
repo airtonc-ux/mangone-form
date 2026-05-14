@@ -61,8 +61,13 @@ export default function HomePage() {
   const loadTopics = async (user: User) => {
     setTopicsLoading(true)
     const { data, error } = await supabase.from('formTopics').select('*').eq('active', true)
+    
+    if (error) console.error("Error cargando tópicos:", error)
+    if (data) console.log("Tópicos recibidos de la DB:", data)
+
     if (!error && data) {
       const filtered = data.filter((t: FormTopic) => user.coordinator || t.access === 'All')
+      console.log("Tópicos después del filtro:", filtered)
       setTopics(filtered)
     }
     setTopicsLoading(false)
