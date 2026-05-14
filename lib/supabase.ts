@@ -7,7 +7,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 export type User = {
   id: string
-  'corporate email': string
+  'corpemail': string
   coordinator: boolean
   name?: string
 }

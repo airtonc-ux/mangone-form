@@ -48,7 +48,7 @@ export default function HomePage() {
 
   const loadDbUser = async (email: string) => {
     setUserLoading(true)
-    const { data, error } = await supabase.from('users').select('*').eq('corporate email', email).single()
+    const { data, error } = await supabase.from('users').select('*').eq('corpemail', email).single()
     if (error || !data) {
       setUserError('Tu cuenta no está registrada en el sistema. Contacta al administrador.')
     } else {
@@ -86,7 +86,7 @@ export default function HomePage() {
     setEmailValidating(true)
     setEmailError(null)
     setEmailValidated(false)
-    const { data, error } = await supabase.from('users').select('id').eq('corporate email', email).single()
+    const { data, error } = await supabase.from('users').select('id').eq('corpemail', email).single()
     if (error || !data) {
       setEmailError('Este correo no está registrado como usuario corporativo.')
       setEmailValidated(false)
