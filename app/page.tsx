@@ -53,7 +53,7 @@ export default function HomePage() {
       setUserError('Tu cuenta no está registrada en el sistema. Contacta al administrador.')
     } else {
       setDbUser(data as User)
-      loadTopics(data as User)
+      await loadTopics(data as User)
     }
     setUserLoading(false)
   }
@@ -66,7 +66,10 @@ export default function HomePage() {
     if (data) console.log("Tópicos recibidos de la DB:", data)
 
     if (!error && data) {
-      const filtered = data.filter((t: FormTopic) => user.coordinator || t.access === 'All')
+      const filtered = data.filter((t: FormTopic) => 
+        user.coordinator === true || 
+        t.access?.toLowerCase() === 'all'
+      )
       console.log("Tópicos después del filtro:", filtered)
       setTopics(filtered)
     }
