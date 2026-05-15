@@ -68,7 +68,7 @@ export default function HomePage() {
     if (!error && data) {
       const filtered = data.filter((t: FormTopic) => 
         user.coordinator === true || 
-        t.access?.toLowerCase() === 'All'
+        t.access?.toLowerCase() === 'all'
       )
       console.log("Tópicos después del filtro:", filtered)
       setTopics(filtered)
