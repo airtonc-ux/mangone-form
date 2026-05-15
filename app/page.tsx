@@ -119,8 +119,24 @@ export default function HomePage() {
     setSubmitError(null)
     if (!topic) return
     setQuestionsLoading(true)
-    const { data, error } = await supabase.from('formQuestions').select('*').eq('topic_id', topic.pulseid).order('order_index', { ascending: true })
-    if (!error && data) setQuestions(data as FormQuestion[])
+
+    // Intenta cargar usando pulseid. Si no funciona, verifica si tu DB usa el UUID (topic.id)
+    console.log("Buscando preguntas para tópico:", topic.name, "con pulseid:", topic.pulseid)
+    
+    const { data, error } = await supabase
+      .from('formQuestions')
+      .select('*')
+      .eq('topic_id', topic.pulseid) // Cambia a topic.id si usas UUIDs en formQuestions
+      .order('order_index', { ascending: true })
+    
+    if (error) {
+      console.error("Error Supabase formQuestions:", error)
+      setSubmitError("Error al cargar las preguntas del tópico.")
+    }
+    if (data) {
+      console.log("Preguntas encontradas:", data.length)
+      setQuestions(data as FormQuestion[])
+    }
     setQuestionsLoading(false)
   }
 
@@ -280,13 +296,19 @@ export default function HomePage() {
                   <span className="text-sm" style={{ color: 'var(--slate)' }}>Cargando preguntas...</span>
                 </div>
               ) : (
-                <div className="space-y-6 max-w-md mx-auto">
-                  {questions.map((q, idx) => (
-                    <QuestionField key={q.id || idx} question={q}
-                      value={answers[q.subitempulse] ?? null}
-                      onChange={val => handleAnswerChange(q.subitempulse, val)} />
-                  ))}
-                </div>
+                <>
+                  {questions.length > 0 ? (
+                    <div className="space-y-6 max-w-md mx-auto">
+                      {questions.map((q, idx) => (
+                        <QuestionField key={q.id || idx} question={q}
+                          value={answers[q.subitempulse] ?? null}
+                          onChange={val => handleAnswerChange(q.subitempulse, val)} />
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-center py-8 text-xs italic" style={{ color: 'var(--slate)' }}>No hay preguntas configuradas para este tópico.</p>
+                  )}
+                </>
               )}
             </div>
           )}
