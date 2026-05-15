@@ -189,9 +189,9 @@ export default function HomePage() {
   )
 
   return (
-    <div className="min-h-screen" style={{ background: '#0f1115', color: '#f8f5ee' }}>
+    <div className="min-h-screen flex flex-col" style={{ background: '#0f1115', color: '#f8f5ee' }}>
       <header style={{ background: '#000', borderBottom: '2px solid var(--gold)' }}>
-        <div className="max-w-2xl mx-auto px-8 py-4 flex items-center justify-between">
+        <div className="max-w-xl mx-auto w-full px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span style={{ color: 'var(--gold)', fontSize: '1.1rem' }}>⚖</span>
             <div>
@@ -205,7 +205,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto px-8 py-10">
+      <main className="max-w-xl mx-auto w-full px-6 py-10 flex-grow">
         <div className="text-center mb-10 animate-fadeUp">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="h-px w-16" style={{ background: 'var(--gold)' }} />
@@ -235,11 +235,10 @@ export default function HomePage() {
             </div>
             <div className="h-px mb-5" style={{ background: '#2a2e37' }} />
 
-            <div className="max-w-md mx-auto">
             <label className="flex items-center gap-3 mb-6 cursor-pointer" onClick={handleSelfToggle}>
               <div className="w-4 h-4 flex-shrink-0 rounded-sm flex items-center justify-center transition-all"
                 style={{ border: `1.5px solid ${isSelf ? 'var(--gold)' : '#3f444d'}`, background: isSelf ? 'var(--gold)' : 'transparent' }}>
-                {isSelf && <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                {isSelf && <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
               </div>
               <span className="text-sm" style={{ color: '#e2e8f0' }}>Soy el solicitante — usar mi correo corporativo</span>
             </label>
@@ -262,7 +261,6 @@ export default function HomePage() {
               {emailError && <p className="mt-1.5 text-xs" style={{ color: 'var(--error)' }}>{emailError}</p>}
               {emailValidated && <p className="mt-1.5 text-xs" style={{ color: '#4ade80' }}>✓ Correo verificado en el sistema</p>}
             </div>
-            </div>
           </div>
 
           {/* SECTION 2: Tópico */}
@@ -272,16 +270,14 @@ export default function HomePage() {
               <h2 className="font-display text-xl font-medium text-white">Tipo de Solicitud</h2>
             </div>
             <div className="h-px mb-5" style={{ background: '#2a2e37' }} />
-            <div className="max-w-md mx-auto">
-              <label className="block text-xs font-medium uppercase tracking-wider mb-2" style={{ color: '#94a3b8' }}>Selecciona el Tópico *</label>
-              <select value={selectedTopic?.id || ''} onChange={e => handleTopicChange(e.target.value)}
-                disabled={topicsLoading} className="form-input form-select" required
-                style={{ background: '#0f1115', borderColor: '#3f444d', color: 'white' }}>
-                <option value="">{topicsLoading ? 'Cargando tópicos...' : '— Selecciona una opción —'}</option>
-                {topics.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-              </select>
-              {selectedTopic?.description && <p className="mt-2 text-xs italic" style={{ color: '#94a3b8' }}>{selectedTopic.description}</p>}
-            </div>
+            <label className="block text-xs font-medium uppercase tracking-wider mb-2" style={{ color: '#94a3b8' }}>Selecciona el Tópico *</label>
+            <select value={selectedTopic?.id || ''} onChange={e => handleTopicChange(e.target.value)}
+              disabled={topicsLoading} className="form-input form-select" required
+              style={{ background: '#0f1115', borderColor: '#3f444d', color: 'white' }}>
+              <option value="">{topicsLoading ? 'Cargando tópicos...' : '— Selecciona una opción —'}</option>
+              {topics.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+            </select>
+            {selectedTopic?.description && <p className="mt-2 text-xs italic" style={{ color: '#94a3b8' }}>{selectedTopic.description}</p>}
           </div>
 
           {/* SECTION 3: Preguntas */}
@@ -300,7 +296,7 @@ export default function HomePage() {
               ) : (
                 <>
                   {questions.length > 0 ? (
-                    <div className="space-y-6 max-w-md mx-auto">
+                    <div className="space-y-6">
                       {questions.map((q, idx) => (
                         <QuestionField key={q.id || idx} question={q}
                           value={answers[q.subitempulse] ?? null}
@@ -317,7 +313,7 @@ export default function HomePage() {
 
           {/* Submit */}
           {selectedTopic && !questionsLoading && (
-            <div className="pt-6 border-t max-w-md mx-auto" style={{ borderColor: '#2a2e37' }}>
+            <div className="pt-6 border-t" style={{ borderColor: '#2a2e37' }}>
               {submitError && <div className="mb-4 p-3 rounded-sm text-sm" style={{ background: 'rgba(245, 108, 108, 0.1)', border: '1px solid #f56c6c', color: '#f56c6c' }}>{submitError}</div>}
               <div className="flex items-center justify-between">
                 <p className="text-xs" style={{ color: '#94a3b8' }}>* Campos requeridos</p>

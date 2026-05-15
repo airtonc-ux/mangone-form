@@ -45,7 +45,7 @@ function SignInContent() {
 
           {isDomainError && (
             <div className="mb-5 p-3 rounded-sm text-sm flex items-start gap-2"
-              style={{ background: '#FDF0EE', border: '1px solid #F5C6C2', color: 'var(--error)' }}>
+              style={{ background: 'rgba(245, 108, 108, 0.1)', border: '1px solid #f56c6c', color: '#f56c6c' }}>
               <span className="flex-shrink-0 mt-0.5">⚠</span>
               <div>
                 <p className="font-medium">Acceso denegado</p>
