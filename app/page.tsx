@@ -43,8 +43,10 @@ export default function HomePage() {
   }, [status, router])
 
   useEffect(() => {
-    if (session?.user?.email) loadDbUser(session.user.email)
-  }, [session])
+    if (status === 'authenticated' && session?.user?.email && !dbUser && !userLoading) {
+      loadDbUser(session.user.email)
+    }
+  }, [status, session?.user?.email, dbUser, userLoading])
 
   const loadDbUser = async (email: string) => {
     setUserLoading(true)
@@ -150,7 +152,7 @@ export default function HomePage() {
     setSubmitting(false)
   }
 
-  if (status === 'loading' || userLoading) return (
+  if (status === 'loading' || (userLoading && !dbUser)) return (
     <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--cream)' }}>
       <div className="text-center">
         <div className="w-8 h-8 border-2 rounded-full animate-spin mx-auto mb-4" style={{ borderColor: 'var(--gold)', borderTopColor: 'transparent' }} />
@@ -173,7 +175,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen" style={{ background: 'var(--cream)' }}>
       <header style={{ background: 'var(--charcoal)', borderBottom: '2px solid var(--gold)' }}>
-        <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-2xl mx-auto px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span style={{ color: 'var(--gold)', fontSize: '1.1rem' }}>⚖</span>
             <div>
@@ -187,7 +189,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-6 py-10">
+      <main className="max-w-2xl mx-auto px-8 py-10">
         <div className="text-center mb-10 animate-fadeUp">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="h-px w-16" style={{ background: 'var(--gold)' }} />
@@ -210,14 +212,15 @@ export default function HomePage() {
 
         <form onSubmit={handleSubmit} className="animate-fadeUp card p-8">
           {/* SECTION 1: Solicitante */}
-          <div className="mb-8">
+          <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold" style={{ background: 'var(--charcoal)', color: 'var(--gold)' }}>1</div>
               <h2 className="font-display text-xl font-medium">Datos del Solicitante</h2>
             </div>
             <div className="h-px mb-5" style={{ background: 'var(--cream-dark)' }} />
 
-            <label className="flex items-center gap-3 mb-4 cursor-pointer" onClick={handleSelfToggle}>
+            <div className="max-w-md mx-auto">
+            <label className="flex items-center gap-3 mb-6 cursor-pointer" onClick={handleSelfToggle}>
               <div className="w-4 h-4 flex-shrink-0 rounded-sm flex items-center justify-center transition-all"
                 style={{ border: `1.5px solid ${isSelf ? 'var(--charcoal)' : '#D4C9B0'}`, background: isSelf ? 'var(--charcoal)' : 'white' }}>
                 {isSelf && <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#C9A84C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
@@ -242,16 +245,17 @@ export default function HomePage() {
               {emailError && <p className="mt-1.5 text-xs" style={{ color: 'var(--error)' }}>{emailError}</p>}
               {emailValidated && <p className="mt-1.5 text-xs" style={{ color: '#1A6B3C' }}>✓ Correo verificado en el sistema</p>}
             </div>
+            </div>
           </div>
 
           {/* SECTION 2: Tópico */}
-          <div className="mb-8">
+          <div className="mb-10">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold" style={{ background: 'var(--charcoal)', color: 'var(--gold)' }}>2</div>
               <h2 className="font-display text-xl font-medium">Tipo de Solicitud</h2>
             </div>
             <div className="h-px mb-5" style={{ background: 'var(--cream-dark)' }} />
-            <div>
+            <div className="max-w-md mx-auto">
               <label className="block text-xs font-medium uppercase tracking-wider mb-2" style={{ color: 'var(--slate)' }}>Selecciona el Tópico *</label>
               <select value={selectedTopic?.id || ''} onChange={e => handleTopicChange(e.target.value)}
                 disabled={topicsLoading} className="form-input form-select" required>
@@ -264,7 +268,7 @@ export default function HomePage() {
 
           {/* SECTION 3: Preguntas */}
           {selectedTopic && (
-            <div className="mb-8 animate-fadeIn">
+            <div className="mb-10 animate-fadeIn">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold" style={{ background: 'var(--charcoal)', color: 'var(--gold)' }}>3</div>
                 <h2 className="font-display text-xl font-medium">Detalles de la Solicitud</h2>
@@ -276,7 +280,7 @@ export default function HomePage() {
                   <span className="text-sm" style={{ color: 'var(--slate)' }}>Cargando preguntas...</span>
                 </div>
               ) : (
-                <div className="space-y-6">
+                <div className="space-y-6 max-w-md mx-auto">
                   {questions.map((q, idx) => (
                     <QuestionField key={q.id || idx} question={q}
                       value={answers[q.subitempulse] ?? null}
@@ -289,7 +293,7 @@ export default function HomePage() {
 
           {/* Submit */}
           {selectedTopic && !questionsLoading && (
-            <div className="pt-4 border-t" style={{ borderColor: 'var(--cream-dark)' }}>
+            <div className="pt-6 border-t max-w-md mx-auto" style={{ borderColor: 'var(--cream-dark)' }}>
               {submitError && <div className="mb-4 p-3 rounded-sm text-sm" style={{ background: '#FDF0EE', border: '1px solid #F5C6C2', color: 'var(--error)' }}>{submitError}</div>}
               <div className="flex items-center justify-between">
                 <p className="text-xs" style={{ color: 'var(--slate)' }}>* Campos requeridos</p>
