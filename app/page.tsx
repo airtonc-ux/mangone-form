@@ -189,9 +189,9 @@ export default function HomePage() {
   )
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: '#0f1115', color: '#f8f5ee' }}>
+    <div className="min-h-screen flex flex-col" style={{ background: '#0a0b0d', color: '#f8f5ee' }}>
       <header style={{ background: '#000', borderBottom: '2px solid var(--gold)' }}>
-        <div className="max-w-xl mx-auto w-full px-6 py-4 flex items-center justify-between">
+        <div className="max-w-lg mx-auto w-full px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span style={{ color: 'var(--gold)', fontSize: '1.1rem' }}>⚖</span>
             <div>
@@ -205,7 +205,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="max-w-xl mx-auto w-full px-6 py-10 flex-grow">
+      <main className="max-w-lg mx-auto w-full px-6 py-10 flex-grow">
         <div className="text-center mb-10 animate-fadeUp">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="h-px w-16" style={{ background: 'var(--gold)' }} />
@@ -213,7 +213,7 @@ export default function HomePage() {
             <div className="h-px w-16" style={{ background: 'var(--gold)' }} />
           </div>
           <h1 className="font-display text-3xl md:text-4xl font-light">Solicitudes a Recursos Humanos</h1>
-          <p className="mt-2 text-sm tracking-wide" style={{ color: 'var(--gold-dark)' }}>Mangone Law Firm · Portal Interno</p>
+          <p className="mt-2 text-sm tracking-wide" style={{ color: '#C9A84C' }}>Mangone Law Firm · Portal Interno</p>
         </div>
 
         {submitSuccess && (
@@ -244,7 +244,7 @@ export default function HomePage() {
             </label>
 
             <div>
-              <label className="block text-xs font-medium uppercase tracking-wider mb-2" style={{ color: '#94a3b8' }}>Correo del Solicitante *</label>
+              <label className="block text-xs font-medium uppercase tracking-wider mb-2" style={{ color: '#cbd5e1' }}>Correo del Solicitante *</label>
               <div className="relative">
                 <input type="email" value={applicantEmail}
                   onChange={e => { setApplicantEmail(e.target.value); setEmailValidated(false); setEmailError(null) }}
@@ -270,7 +270,7 @@ export default function HomePage() {
               <h2 className="font-display text-xl font-medium text-white">Tipo de Solicitud</h2>
             </div>
             <div className="h-px mb-5" style={{ background: '#2a2e37' }} />
-            <label className="block text-xs font-medium uppercase tracking-wider mb-2" style={{ color: '#94a3b8' }}>Selecciona el Tópico *</label>
+            <label className="block text-xs font-medium uppercase tracking-wider mb-2" style={{ color: '#cbd5e1' }}>Selecciona el Tópico *</label>
             <select value={selectedTopic?.id || ''} onChange={e => handleTopicChange(e.target.value)}
               disabled={topicsLoading} className="form-input form-select" required
               style={{ background: '#0f1115', borderColor: '#3f444d', color: 'white' }}>
@@ -291,7 +291,7 @@ export default function HomePage() {
               {questionsLoading ? (
                 <div className="flex items-center gap-3 py-8 justify-center">
                   <div className="w-5 h-5 border-2 rounded-full animate-spin" style={{ borderColor: 'var(--gold)', borderTopColor: 'transparent' }} />
-                  <span className="text-sm" style={{ color: '#94a3b8' }}>Cargando preguntas...</span>
+                  <span className="text-sm" style={{ color: '#cbd5e1' }}>Cargando preguntas...</span>
                 </div>
               ) : (
                 <>
@@ -338,7 +338,7 @@ function QuestionField({ question, value, onChange }: { question: FormQuestion; 
   const [fileName, setFileName] = useState<string | null>(null)
 
   const labelEl = (
-    <label className="block text-xs font-medium uppercase tracking-wider mb-2" style={{ color: '#94a3b8' }}>
+    <label className="block text-xs font-medium uppercase tracking-wider mb-2" style={{ color: '#cbd5e1' }}>
       {question.label}
     </label>
   )
@@ -377,7 +377,7 @@ function QuestionField({ question, value, onChange }: { question: FormQuestion; 
       </label>)}</div></div>
     case 'file':
       return <div>{labelEl}
-        {question.template && <a href={question.template} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mb-3 text-xs underline" style={{ color: 'var(--gold-dark)' }}>
+        {question.template && <a href={question.template} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mb-3 text-xs underline" style={{ color: '#C9A84C' }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           Descargar plantilla
         </a>}

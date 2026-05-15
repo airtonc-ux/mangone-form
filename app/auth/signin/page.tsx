@@ -30,7 +30,7 @@ function SignInContent() {
             <div className="h-px w-12" style={{ background: 'var(--gold)' }} />
           </div>
           <h1 className="font-display text-4xl font-light tracking-wide text-white">Mangone Law Firm</h1>
-          <p className="mt-2 text-sm tracking-widest uppercase" style={{ color: 'var(--gold-dark)', fontWeight: 500 }}>
+          <p className="mt-2 text-sm tracking-widest uppercase" style={{ color: '#C9A84C', fontWeight: 500 }}>
             Recursos Humanos
           </p>
         </div>
@@ -89,7 +89,7 @@ function SignInContent() {
               <>
                 <div className="w-4 h-4 border-2 rounded-full animate-spin"
                   style={{ borderColor: 'var(--gold)', borderTopColor: 'transparent' }} />
-                <span className="text-sm" style={{ color: 'var(--slate)' }}>Redirigiendo...</span>
+                <span className="text-sm" style={{ color: '#94a3b8' }}>Redirigiendo...</span>
               </>
             )}
           </button>
