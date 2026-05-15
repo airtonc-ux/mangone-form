@@ -17,7 +17,7 @@ function SignInContent() {
   const isDomainError = error === 'domain' || error === 'AccessDenied'
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'var(--cream)' }}>
+    <div className="min-h-screen flex items-center justify-center px-4" style={{ background: '#0f1115' }}>
       <div className="fixed inset-0 pointer-events-none" style={{
         backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(201,168,76,0.04) 40px, rgba(201,168,76,0.04) 41px)`
       }} />
@@ -29,16 +29,16 @@ function SignInContent() {
             <span style={{ color: 'var(--gold)', fontSize: '1.2rem' }}>⚖</span>
             <div className="h-px w-12" style={{ background: 'var(--gold)' }} />
           </div>
-          <h1 className="font-display text-4xl font-light tracking-wide">Mangone Law Firm</h1>
+          <h1 className="font-display text-4xl font-light tracking-wide text-white">Mangone Law Firm</h1>
           <p className="mt-2 text-sm tracking-widest uppercase" style={{ color: 'var(--gold-dark)', fontWeight: 500 }}>
             Recursos Humanos
           </p>
         </div>
 
-        <div className="card p-8">
+        <div className="card p-8" style={{ background: '#1a1d23', border: '1px solid #2a2e37' }}>
           <div className="text-center mb-6">
-            <h2 className="font-display text-2xl font-medium">Portal de Solicitudes</h2>
-            <p className="mt-2 text-sm" style={{ color: 'var(--slate)' }}>
+            <h2 className="font-display text-2xl font-medium text-white">Portal de Solicitudes</h2>
+            <p className="mt-2 text-sm" style={{ color: '#94a3b8' }}>
               Inicia sesión con tu cuenta corporativa para continuar
             </p>
           </div>
@@ -57,9 +57,9 @@ function SignInContent() {
           )}
 
           <div className="flex items-center gap-3 mb-5">
-            <div className="flex-1 h-px" style={{ background: 'var(--cream-dark)' }} />
-            <span className="text-xs uppercase tracking-wider" style={{ color: 'var(--slate)' }}>Acceso seguro</span>
-            <div className="flex-1 h-px" style={{ background: 'var(--cream-dark)' }} />
+            <div className="flex-1 h-px" style={{ background: '#2a2e37' }} />
+            <span className="text-xs uppercase tracking-wider" style={{ color: '#94a3b8' }}>Acceso seguro</span>
+            <div className="flex-1 h-px" style={{ background: '#2a2e37' }} />
           </div>
 
           <button
@@ -67,10 +67,10 @@ function SignInContent() {
             disabled={loading}
             className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-sm border transition-all duration-200"
             style={{
-              borderColor: '#D4C9B0',
-              background: loading ? '#F0EDE5' : 'white',
+              borderColor: '#3f444d',
+              background: loading ? '#2a2e37' : '#0f1115',
               cursor: loading ? 'not-allowed' : 'pointer',
-              color: 'var(--charcoal)'
+              color: '#f8f5ee'
             }}
           >
             {!loading ? (
@@ -94,7 +94,7 @@ function SignInContent() {
             )}
           </button>
 
-          <p className="mt-5 text-center text-xs" style={{ color: 'var(--slate)' }}>
+          <p className="mt-5 text-center text-xs" style={{ color: '#94a3b8' }}>
             Solo accesible con cuentas <strong>@mangonelawfirmllc.com</strong>
           </p>
         </div>
